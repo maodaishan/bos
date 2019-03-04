@@ -125,6 +125,14 @@ namespace eosiosystem {
    static constexpr uint32_t     seconds_per_day = 24 * 3600;
    static constexpr uint64_t     system_token_symbol = CORE_SYMBOL;
 
+   /*For accounts to store their front page url
+	by doing this accounts can easily guide users to their dapp*/
+	struct home_page{
+	   std::string url;
+	   EOSLIB_SERIALIZE(home_page,(url))
+	};
+	typedef eosio::singleton<N(homepages),home_page> home_page_singletone;
+
    class system_contract : public native {
       private:
          voters_table           _voters;
@@ -214,6 +222,9 @@ namespace eosiosystem {
          void rmvproducer( account_name producer );
 
          void bidname( account_name bidder, account_name newname, asset bid );
+
+         void sethomepage(account_name account,std::string url);
+		 inline std::string gethomepage(account_name account) const;
       private:
          void update_elected_producers( block_timestamp timestamp );
 
@@ -231,5 +242,14 @@ namespace eosiosystem {
          // defined in voting.cpp
          void propagate_weight_change( const voter_info& voter );
    };
+
+   std::string system_contract::gethomepage(account_name account)const{
+      home_page_singletone page(_self,account);
+      if(page.exists()){
+         return page.get().url;
+      }else{
+         return "";
+      }
+   }
 
 } /// eosiosystem
