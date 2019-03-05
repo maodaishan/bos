@@ -40,6 +40,13 @@
         {"name":"bid", "type":"asset"}
       ]
     },{
+      "name": "sethomepage",
+      "base": "",
+      "fields": [
+        {"name":"account",  "type":"account_name"},
+        {"name":"url", "type":"string"}
+      ]
+    },{
       "name": "permission_level_weight",
       "base": "",
       "fields": [
@@ -404,6 +411,12 @@
           {"name":"high_bid", "type":"int64"},
           {"name":"last_bid_time", "type":"uint64"}
        ]
+    }, {
+       "name": "homepage_info",
+       "base": "",
+       "fields": [
+          {"name":"url", "type":"string"}
+       ]
     }
    ],
    "actions": [{
@@ -477,6 +490,10 @@
    },{
       "name": "bidname",
       "type": "bidname",
+      "ricardian_contract": ""
+   },{
+      "name": "sethomepage",
+      "type": "sethomepage",
       "ricardian_contract": ""
    },{
       "name": "unregprod",
@@ -571,6 +588,12 @@
        "index_type": "i64",
        "key_names" : ["newname"],
        "key_types" : ["account_name"]
+    },{
+       "name": "homepages",
+       "type": "homepage_info",
+       "index_type": "i64",
+       "key_names" : [],
+       "key_types" : []
     }
    ],
    "ricardian_clauses": [],

@@ -134,6 +134,13 @@ namespace eosiosystem {
       }
    }
 
+   void system_contract::sethomepage(account_name account, std::string url){
+      require_auth(account);
+      eosio_assert( url.size()<=256,"url is too long");
+      eosio_assert( url.find("http")==0,"illegal url");
+	  home_page_singletone page(_self,account);
+	  page.set(home_page{url}, account);
+   }
    /**
     *  Called after a new account is created. This code enforces resource-limits rules
     *  for new accounts as well as new account naming conventions.
@@ -188,7 +195,7 @@ EOSIO_ABI( eosiosystem::system_contract,
      // native.hpp (newaccount definition is actually in eosio.system.cpp)
      (newaccount)(updateauth)(deleteauth)(linkauth)(unlinkauth)(canceldelay)(onerror)
      // eosio.system.cpp
-     (setram)(setparams)(setpriv)(rmvproducer)(bidname)
+     (setram)(setparams)(setpriv)(rmvproducer)(bidname)(sethomepage)
      // delegate_bandwidth.cpp
      (buyrambytes)(buyram)(sellram)(delegatebw)(undelegatebw)(refund)
      // voting.cpp
