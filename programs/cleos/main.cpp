@@ -1735,6 +1735,12 @@ void get_account( const string& accountName, const string& coresym, bool json_fo
             std::cout << "proxy:" << indent << proxy << std::endl;
          }
       }
+
+      if( res.homepage.size() > 0 ){
+         std::cout <<"homepage:";
+         std::cout << indent << res.homepage << std::endl;
+      }
+
       std::cout << std::endl;
    } else {
       std::cout << fc::json::to_pretty_string(json) << std::endl;
